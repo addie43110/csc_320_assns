@@ -154,4 +154,66 @@ object ass1 {
   }
 
 
+  /* 7 */
+  def date_to_string(d: Date): String = {
+    val months = List("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December")
+  
+    get_nth(months, d.month) + " " + d.day + ", " + d.year
+  }
+
+
+  /* 8 */
+  def number_before_reaching_sum(sum: Int, lst: List[Int]): Int = {
+    def helper(sum: Int, curr_sum: Int, acc: Int, lst: List[Int]): Int = {
+      if(curr_sum >= sum) acc
+      else
+        helper(sum, curr_sum+lst.head, acc+1, lst.tail)
+    }
+
+    helper(sum, 0, 0, lst)
+  }
+
+
+  /* 9 */
+  def what_month(day: Int): Int = {
+    val months = List(31, 28, 31, 30, 31, 31, 30, 31, 30, 31)
+    number_before_reaching_sum(day, months)
+  }
+
+
+  /* 10 */
+  def month_range(day1: Int, day2: Int): List[Int] = {
+    if(day1>day2) List[Int]()
+    else
+      what_month(day1)::month_range(day1+1, day2)
+  }
+
+
+  /* 11 */
+  def oldest(dates: List[Date]): Option[Date] = dates match {
+    case x::xs  => oldest(xs) match {
+                     case Some(i) => if (is_older(x, i)) Some(i)
+                                     else Some(x)
+                     case None => Some(x)
+                   }
+    case _ => None
+  }
+
+
+  /* 12 */
+  def reasonable_date(dt: Date): Boolean = {
+    val days_in_months = List(31, 28, 31, 30, 31, 31, 30, 31, 30, 31)
+    if(dt.year < 0 ) 
+      false;
+    else if (dt.month < 1 || dt.month > 12) { 
+      false;
+    } else if (dt.year % 400 != 0 && dt.month==2 && dt.day==29) { 
+      if(dt.year % 4 == 0 && dt.year % 100 != 0) true
+      else {
+        false
+      }
+    } else if (dt.day<0 || dt.day > days_in_months(dt.month)) {
+      false
+    } else true
+  }
 }

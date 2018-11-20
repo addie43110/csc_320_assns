@@ -68,9 +68,52 @@ object ass1tests {
     println(s"test22: ${try{ass1.get_nth(sl4, 4)=="Jash"}catch{case e: Exception => "False"}}")
 
 
+    println("\n\ntesting date_to_string...")
+    println(s"test23: ${ass1.date_to_string(jan_1_2018)=="January 1, 2018"}")
+    println(s"test24: ${ass1.date_to_string(june_1_2015)=="June 1, 2015"}")
+
+
+    println("\n\ntesting number_before_reaching_sum...")
+    val lst1 = List(1, 2, 3, 4, 5, 6);
+    println(s"test25: ${ass1.number_before_reaching_sum(6, lst1)==3}")
+    println(s"test26: ${ass1.number_before_reaching_sum(0, lst1)==0}")
+
+
+    val jday1 = 183 /* july 1st */
+    val jday2 = 265 /* september 21st */
+    println("\n\ntesting what_month...")
+    println(s"test27: ${ass1.what_month(jday1)==7}")
+    println(s"test28: ${ass1.what_month(jday2)==9}")
+
+    val jday3 = 90 /* march 31st */
+    val jday4 = 94 /* april 4th */
+    println("\n\ntesting month_range...")
+    println(s"test29: ${ass1.month_range(jday3, jday4)==List(3,4,4,4,4)}")
+
+
+
+    println("\n\ntesting oldest...")
+    println(s"test30: ${ass1.oldest(jan_array)==Some(ass1.Date(1,1,2018))}")
+    println(s"test31: ${ass1.oldest(june_array)==Some(ass1.Date(1,6,2018))}")
+    println(s"test32: ${ass1.oldest(List[ass1.Date]())==None}")
+
+
+    val real_date1 = ass1.Date(28,2,2018)
+    val real_date2 = ass1.Date(30, 9, 2)
+    val real_date3 = ass1.Date(29, 2, 2020)
+    val fake_date1 = ass1.Date(3, -1, 2014)
+    val fake_date2 = ass1.Date(90, 4, 2003)
+    val fake_date3 = ass1.Date(29, 2, 2019)
+    println("\n\ntesting reasonable_date...")
+    println(s"test33: ${ass1.reasonable_date(real_date1)}")
+    println(s"test34: ${ass1.reasonable_date(real_date2)}")
+    println(s"test35: ${ass1.reasonable_date(real_date3)}")
+    println(s"test36: ${!ass1.reasonable_date(fake_date1)}")
+    println(s"test37: ${!ass1.reasonable_date(fake_date2)}")
+    println(s"test38: ${!ass1.reasonable_date(fake_date3)}")
+
 
   } /* end main */
-
 
 
 }
